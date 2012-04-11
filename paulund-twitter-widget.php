@@ -32,7 +32,7 @@ add_action( 'widgets_init', create_function( '', 'register_widget("pu_tweet_widg
  	
 	private $twitter_title = "My Tweets";
 	private $twitter_username = "paulund_";
-	private $twitter_postcode = "10";
+	private $twitter_postcount = "10";
 	private $twitter_follow_text = "Follow Me On Twitter";
  	
 	/**
@@ -77,7 +77,7 @@ add_action( 'widgets_init', create_function( '', 'register_widget("pu_tweet_widg
 		$this->twitter_title = apply_filters('widget_title', $instance['title'] );
 		
 		$this->twitter_username = $instance['username'];
-		$this->twitter_postcode = $instance['postcount'];
+		$this->twitter_postcount = $instance['postcount'];
 		$this->twitter_follow_text = $instance['tweettext'];
 				
 		$transName = 'list-tweets'; // Name of value in database.
@@ -85,7 +85,7 @@ add_action( 'widgets_init', create_function( '', 'register_widget("pu_tweet_widg
 	 
 	    if(false === ($twitterData = get_transient($transName) ) ){
 	        // Get the tweets from Twitter.
-	        $json = wp_remote_get("http://api.twitter.com/1/statuses/user_timeline.json?screen_name=".$this->twitter_username."&count=".$this->twitter_postcode);
+	        $json = wp_remote_get("http://api.twitter.com/1/statuses/user_timeline.json?screen_name=".$this->twitter_username."&count=".$this->twitter_postcount);
 	 
 	        // Get tweets into an array.
 	        $twitterData = json_decode($json['body'], true);
@@ -150,7 +150,7 @@ add_action( 'widgets_init', create_function( '', 'register_widget("pu_tweet_widg
 		                    echo '</li>';
 		 
 		                    $i++;
-		                    if ( $i >= $this->twitter_postcode ) break;
+		                    if ( $i >= $this->twitter_postcount ) break;
 		            }
 
 					echo '</ul>';
@@ -198,7 +198,7 @@ add_action( 'widgets_init', create_function( '', 'register_widget("pu_tweet_widg
 		$defaults = array(
 		'title' => $this->twitter_title,
 		'username' => $this->twitter_username,
-		'postcount' => $this->twitter_postcode,
+		'postcount' => $this->twitter_postcount,
 		'tweettext' => $this->twitter_follow_text,
 		);
 		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
