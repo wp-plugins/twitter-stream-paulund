@@ -98,7 +98,7 @@ add_action( 'widgets_init', create_function( '', 'register_widget("pu_tweet_widg
 		/* Before widget (defined by themes). */
 		echo $before_widget;
 		?>
-		<div class="highlight twitter_box"><?php
+		<div class="twitter_box"><?php
 
 		/* Display the widget title if one was input (before and after defined by themes). */
 		if ( $this->twitter_title )
